@@ -1,0 +1,30 @@
+<h2>Lista de Bicicletas da loja</h2> <!--1-->
+<hr>
+<a href="/admin/bikes/add"><button class="btn btn-success">Adicionar novo produto</button></a> 
+
+{{#each bikes}}
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="image-container-events">
+                <img src="{{image}}" alt="Imagem da bicicleta" style="max-width: 400px; border: 1px solid #ccc; border-radius: 5px; padding: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+            </div>
+            <h4>Modelo: {{model}}</h4> <!--parâmetro name dentro de bikes-->
+            <strong><small>Descrição:</strong> {{description}}</small><br>
+            <strong><small>Tamanho:</strong> {{size}}</small><br>
+            <strong><small>Preço:</strong> R$ {{cost}}</small><br>
+            <strong><small>Slug:</strong> {{slug}}</small><br>
+            <strong><small>Registrado em:</strong> {{date}}</small>
+            <!--Deste template, vamos passar o id da bike para os botões de update e delete, bastando apenas criar as rotas-->
+            <div class="d-flex"> <!--Para colocar os botões um do lado do outro-->
+                <a href="/admin/bikes/editar/{{_id}}"><button class="btn btn-success mt-2">Editar dados do produto</button></a> <!--Tive que modificar o botão, pois precisamos passar informações para a rota get e não podemos fazer como fizemos abaixo com delete que é uma rota POST-->
+                <div class="mx-2"></div> <!--Para colocar um espaço entre os botões-->
+                <form action="/admin/bikes/deletar" method="POST">
+                    <input type="hidden" name="id" value="{{_id}}">
+                    <button type="submit" class="btn btn-danger mt-2">Deletar produto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{{else}}
+    <h4 class="mt-3">Nenhuma bicicleta registada!</h4>
+{{/each}}

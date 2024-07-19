@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title> <!--Esse title não aparece, pois um está sendo passado em main.handlebars que está refletindo para todo o sistema-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .carousel-item img {
+            height: 680px; /* Ajusta a altura conforme necessário */
+            width: 100px; /* Garante que a imagem ocupe toda a largura do container */
+            object-fit: cover; /* Mantém a proporção da imagem e corta se necessário */
+            object-position: center; /* Centraliza a imagem dentro do container */
+        }
+        .cart-image {
+            height: 54px; /* Ajuste a altura conforme necessário para corresponder à altura do botão */
+            width: auto; /* Mantém a proporção da imagem */
+            vertical-align: middle; /* Centraliza a imagem verticalmente no botão */
+        }
+        .btn-custom-cart {
+            background-color: darkblue;
+            color: white; /* Adiciona cor do texto */
+            height: 55px; /* Ajuste a altura conforme necessário */
+            width: 150px; /* Ajuste a largura conforme necessário */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none; /* Remove borda padrão */
+            padding: 0; /* Remove padding para alinhamento preciso */
+            margin: 0; /* Remove margem para alinhamento preciso */
+            flex-shrink: 0; /* Garante que os botões não encolham */
+        }
+        .btn-custom-buy {
+            background-color: green;
+            color: white; /* Adiciona cor do texto */
+            height: 55px; /* Ajuste a altura conforme necessário */
+            width: 150px; /* Ajuste a largura conforme necessário */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none; /* Remove borda padrão */
+            padding: 0; /* Remove padding para alinhamento preciso */
+            margin: 0; /* Remove margem para alinhamento preciso */
+            flex-shrink: 0; /* Garante que os botões não encolham */
+        }
+        .product-name-description {
+            height: 40px; /* Ajuste conforme necessário */
+            overflow: hidden; /* Esconde o texto que ultrapassar o limite */
+            text-overflow: ellipsis; /* Adiciona "..." no final do texto que ultrapassar o limite */
+            white-space: nowrap; /* Impede a quebra de linha */
+            text-align: left; /* Centraliza o texto */
+        } 
+        .card-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Espaço entre os botões */
+            flex-wrap: wrap; /* Garante que os botões se ajustem em telas menores */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Carousel -->
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {{#each images}}
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{@index}}" class="{{#if @first}}active{{/if}}" aria-current="{{#if @first}}true{{/if}}" aria-label="Slide {{@index}}"></button>
+                {{/each}}
+            </div>
+            <div class="carousel-inner">
+                {{#each images}}
+                    <div class="carousel-item {{#if @first}}active{{/if}}">
+                        <a href="{{link}}"> <!-- Usa a rota específica para cada imagem -->
+                            <img src="{{url}}" class="d-block w-100" alt="{{alt}}">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><strong>{{caption}}</strong></h5>
+                            </div>
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- Bikes Section -->
+        <br>
+        <h2><strong>Compre já sua Bike:</strong></h2> 
+        <div class="row">
+            {{#each bikes}}
+                <div class="col-md-4">
+
+                    <div class="card mt-4">
+
+                        <div class="card-body">
+                            <img src="{{image}}" alt="Imagem da bike" class="img-fluid" style="height: 400px; border: 1px solid #ccc; border-radius: 5px; padding: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="product-name-description">{{model}}</h3>
+                            <h5>Descrição:</h5>
+                            <p class="product-name-description">{{description}}</p>
+                            <h5>Tamanho:</h5>
+                            <p>{{size}}</p>
+                            <h5>Preço:</h5>
+                            <h2>R${{cost}}</h2>
+                            <div class="card-buttons">
+                                <!-- COMO VAMOS TROCAR DE ABORDAGEM, VAMOS COLOCAR O BOTÃO FORA DO FORM PARA UTILIZAR O A ESTRATÉGIA DO FETCH E SWAL.FIRE
+                                <form action="/usuarios/buy/{{_id}}" method="POST">
+                                    <button class="btn btn-custom-buy" type="submit"><strong>COMPRAR</strong></button>
+                                </form>-->
+                                <button class="btn btn-custom-buy buy-to-cart" data-id="{{_id}}" type="submit"><strong>COMPRAR</strong></button>
+                                <div class="mx-2"></div>
+                                <button class="btn btn-custom-cart add-to-cart" data-id="{{_id}}"><img src="/image/itens/cart-image.png" alt="Adicionar ao Carrinho" class="cart-image"></button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            {{else}}
+                <h4 class="mt-3">Nenhum produto registrado!</h4>
+            {{/each}}
+        </div>
+    </div>
+    <br>
+</body>
+</html>
+
+
+
+<!--
+A escolha entre usar JavaScript ou formulários HTML depende das necessidades específicas do seu projeto. 
+Se a simplicidade e a compatibilidade são suas principais preocupações, opte por formulários HTML. Se você quer melhorar a experiência do 
+usuário e fornecer uma interface mais interativa, use JavaScript com Fetch API.
+
+O código abaixo nos permite o uso do JavaScript com Fetch API. Essa abordagem permite que o usuário realize operações de forma dinâmica, onde
+uma página, por exemplo, não precisará ser recarregada caso ele adicione um item no carrinho de compras.
+ 
+Para implementar a lógica do HTML, necessitariamos modificar o button para colocá-lo dentro de form e modificar a rota post para ficar similar ao que ocorre com o botão Compra-->
+
+<!--2 versão-->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() { /*Este evento é acionado quando o documento HTML inicial foi completamente carregado e analisado, sem esperar que folhas de estilo, imagens e subframes terminem de carregar. É um ponto ideal para adicionar manipuladores de eventos a elementos que existem na página.*/
+        document.querySelectorAll('.add-to-cart').forEach(button => { // Está linha sinaliza para o código que as ações serão para todos os botões que tenham o nome 'add-to-cart' dentro da tag <button></button>. Se olhar lá na tag buttons no HTML, o botão de "Adicionar ao carrinho de compras" tem o mesmo nome.
+            button.addEventListener('click', function() { // Sinaliza a execução da função criada abaixo no botão, ou seja, quando ocorrer o evento click
+                const bikeId = this.getAttribute('data-id'); // Essa constante foi criada para receber o id da bike em que tivemos um click no botão
+
+                fetch(`/usuarios/add-to-cart/${bikeId}`, { // A função fetch é usada para fazer uma solicitação HTTP. Aqui, estamos fazendo uma solicitação POST para a rota /usuarios/add-to-cart/${bikeId}, onde ${bikeId} é o ID da bicicleta. Também definimos o cabeçalho Content-Type como application/json para informar ao servidor que estamos enviando JSON.
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                    // A função fetch envia um promise para a rota add-to-cart que é um representante de uma eventual conclusão (ou falha) de uma operação assíncrona e seu valor resultante. 
+                    // A função fetch recebe da rota, especificamente, add-to-cart (o res.json) um response cheio de informações sobre a resposta, como o status, os headers, e o corpo. Ao chegar, ele chega no HTML e a função then(response => response.json()) lê, converte o response para um objeto json e interpreta para usarmos a resposta conforme foi arquitetado nos swal.fire
+                }).then(response => response.json()) // Aqui, estamos lidando com a resposta da solicitação fetch. A primeira função then converte a resposta em JSON. A segunda função then verifica se a resposta contém success: true e, em caso afirmativo, exibe um alerta de sucesso usando SweetAlert2. Se success for false, exibe um alerta de erro. A função catch captura quaisquer erros que ocorrem durante a solicitação fetch e exibe um alerta de erro correspondente.
+                  .then(data => { // data é o nome da variável que contém a resposta, ou seja, poderia ter qualquer outro nome
+                      if (data.success) {
+                        showAlert('success', 'Sucesso', data.message);
+                        /*Vamos utilizar a função acima, pois ela já tem swal.fire pronto.
+                          Swal.fire({ // Aqui no swal.fire temos a formação dos alert bonitos. Ele é uma função da biblioteca SweetAlert2 que sinalizamos lá no main.handlebars
+                              icon: 'success',
+                              title: 'Sucesso',
+                              text: data.message,
+                              showConfirmButton: false,
+                              timer: 1500
+                          });*/
+                      } else {
+                            showAlert('error', 'Erro', 'Erro ao adicionar o produto ao carrinho.');  
+                          /*Swal.fire({
+                              icon: 'error',
+                              title: 'Erro',
+                              text: 'Erro ao adicionar o produto ao carrinho.',
+                          })*/;
+                      }
+                  }).catch(err => { // Caso ocorra algum erro no uso do fetch.
+                    console.error('Erro:', err);
+                    showAlert('error', 'Erro', 'Você precisa estar logado ou criar uma conta para adicionar ao carrinho de compras!');
+                      /*Swal.fire({
+                          icon: 'error',
+                          title: 'Erro',
+                          text: "Você precisa estar logado ou criar uma conta para adicionar ao carrinho de compras!",
+                      });*/
+                  });
+            });
+        });
+
+        document.querySelectorAll('.buy-to-cart').forEach(button => { // Está linha sinaliza para o código que as ações serão para todos os botões que tenham o nome 'add-to-cart' dentro da tag <button></button>. Se olhar lá na tag buttons no HTML, o botão de "Adicionar ao carrinho de compras" tem o mesmo nome.
+            button.addEventListener('click', function() { // Sinaliza a execução da função criada abaixo no botão, ou seja, quando ocorrer o evento click
+                const bikeId = this.getAttribute('data-id'); // Essa constante foi criada para receber o id da bike em que tivemos um click no botão
+
+                fetch(`/usuarios/buy/${bikeId}`, { // A função fetch é usada para fazer uma solicitação HTTP. Aqui, estamos fazendo uma solicitação POST para a rota /usuarios/add-to-cart/${bikeId}, onde ${bikeId} é o ID da bicicleta. Também definimos o cabeçalho Content-Type como application/json para informar ao servidor que estamos enviando JSON.
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                    // A função fetch envia um promise para a rota add-to-cart que é um representante de uma eventual conclusão (ou falha) de uma operação assíncrona e seu valor resultante. 
+                    // A função fetch recebe da rota, especificamente, add-to-cart (o res.json) um response cheio de informações sobre a resposta, como o status, os headers, e o corpo. Ao chegar, ele chega no HTML e a função then(response => response.json()) lê, converte o response para um objeto json e interpreta para usarmos a resposta conforme foi arquitetado nos swal.fire
+                }).then(response => response.json()) // Aqui, estamos lidando com a resposta da solicitação fetch. A primeira função then converte a resposta em JSON. A segunda função then verifica se a resposta contém success: true e, em caso afirmativo, exibe um alerta de sucesso usando SweetAlert2. Se success for false, exibe um alerta de erro. A função catch captura quaisquer erros que ocorrem durante a solicitação fetch e exibe um alerta de erro correspondente.
+                  .then(data => { // data é o nome da variável que contém a resposta, ou seja, poderia ter qualquer outro nome
+                      if (data.success) {
+                        // Não desejo mostrar mensagem de sucesso, pois a ideia e ir direto para o carrinho de compras
+                        window.location.href = '/usuarios/cart'; // Vamos redirecionar o programa para a rota correta aqui, tendo em vista que o fetch sempre espera uma resposta.
+                    } else {
+                        showAlert('error', 'Erro', 'Erro ao adicionar o produto ao carrinho.');
+                    }
+                }).catch(err => { // Caso ocorra algum erro no uso do fetch.
+                    console.error('Erro:', err);
+                    showAlert('error', 'Erro', 'Você precisa estar logado ou criar uma conta para comprar!');
+                });
+            });
+        });
+         // Verifica e exibe mensagem de sucesso armazenada no localStorage (na sessão) - No cart, estamos passando uma mensagem no showAlert e depois a mudança para a rota.
+        const successMessage = localStorage.getItem('successMessage');
+        const errorMessage = localStorage.getItem('errorMessage');
+        if (successMessage) {
+            showAlert('success', 'Sucesso', successMessage);
+            localStorage.removeItem('successMessage'); // Remove a mensagem para que não seja exibida novamente
+        } else if (errorMessage) {
+            showAlert('error', 'Erro', errorMessage);
+            localStorage.removeItem('errorMessage');
+        }
+    });
+</script>
+
+<!-- VERSÃO DO TEMPLATE QUE FUNCIONA SEM O CAROUSEL
+<div class="container mt-4">
+    <h1>PÁGINA INICIAL EM DESENVOLVIMENTO</h1>
+    <h2>Compre já sua Bike:</h2> 
+
+    <div class="row">
+        {{#each bikes}}
+            <div class="col-md-4">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <img src="{{image}}" alt="Imagem da bike" class="img-fluid" style="border: 1px solid #ccc; border-radius: 5px; padding: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+                    </div>
+                    <div class="card-body">
+                        <h3>{{model}}</h3>
+                        <h5>Descrição:</h5>
+                        <small>{{description}}</small>
+                        <br>
+                        <h5>Tamanho:</h5>
+                        <small>{{size}}</small>
+                        <br>
+                        <h5>Preço:</h5>
+                        <small>R$ {{cost}}</small>
+                        <br>
+                        <div class="d-flex justify-content-center mt-2">
+                            <form action="/usuarios/buy/{{_id}}" method="POST">
+                                <button class="btn btn-success" type="submit">COMPRAR</button>
+                            </form>
+                            <div class="mx-2"></div>
+                            <button class="btn btn-success add-to-cart" data-id="{{_id}}">ADICIONAR AO CARRINHO</button> <!-- Para utilizar com a abordagem de Fetch API-->
+                        <!--btn btn-success: São classes do Bootstrap para estilização. btn aplica os estilos de botão, e btn-success aplica um estilo verde ao botão.
+                            add-to-cart: É uma classe adicional que você pode usar para selecionar este botão específico no JavaScript.
+                            data-id="{{_id}}": Este atributo personalizado armazena o ID da bike. É um dado dinâmico que será substituído pelo valor real do ID da bike no momento de renderização. A partir do "-" poderia ter qualquer outro nome, lembrando que é interessante fornecer um nome que seja coerente com o que data irá salvar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{else}}
+            <h4 class="mt-3">Nenhum produto registrado!</h4>
+        {{/each}}
+    </div>
+</div>-->

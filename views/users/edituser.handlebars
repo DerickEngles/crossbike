@@ -1,0 +1,22 @@
+{{#each errors}}
+    <div class="alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+<h2>Alteração de dados</h2>
+<div class="card">
+    <div class="card-body">
+        <form action="" method="POST"> <!--lembre-se que a estratégia de não definir o action é para o caso da post ter o mesmo nome que a rota get que chamou o formulário HTML no qual estamos.-->
+        <input type="hidden" name="id" value="{{user._id}}"> <!--Esse user é o segundo passado em res.render-->    
+            <label for="name">Nome: </label>
+                <input type="text" name="name" class="form-control" value="{{user.name}}" required>
+            <label for="email">E-mail: </label>
+                <input type="email" name="email" class="form-control" value="{{user.email}}" required>
+            <label for="password">Senha: </label>
+                <input type="password" name="password" class="form-control" value="{{user.password}}" required>
+            <label for="password2">Repita sua senha: </label>
+                <input type="password" name="password2" class="form-control" value="{{user.password}}" required><br>   
+            <button type="submit" class="btn btn-success">Editar dados</button>
+        </form>
+    </div>
+</div>

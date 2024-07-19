@@ -1,0 +1,78 @@
+Minha ideia é criar uma aplicação web que seja baseada no meu projeto Crossbike do 1 semestre na faculdade
+Teremos uma página inicial como itens menu, compre sua bike, blog, contato e quem somos?
+
+Vamos tentar criar um roda pé como o da imagem
+
+FEITO:
+
+1 - Fazer as configurações iniciais 
+
+2 - Criar a área admin: 
+a) Para add bikes - FEITO
+b) Para add posts - DECIDIR NÃO FAZER - OS PROJETOS ANTERIORES JÁ TINHAM E DECIDIR POR FAZER COISAS NOVAS NESSE NOVO PROJETO
+
+3 - Criar área de contato
+
+4 - Além disso, criar admin. Cadastramento de usuário não ADMIN - nome e e-mail (em situação real, iriam add endereço, cpf e telefone)
+
+5 - Dar vida à página incial. Nela teremos as bikes para serem compradas. Será necessário acrescentar o preço nas bikes e talves mudar o tamanho para o português (MANTIVE EM INGLÊS).
+
+6) Poderiamos dividir as bikes por tamanho (Adulto, Teen e Kids) e criar na aba "Compre sua bike" um dropdown com opção Adults, Teens e Kids. O melhor a fazer é ver se conseguimos organizar com o próprio JavaScript sem precisar criar categorias, o que talvez fosse interessante para melhor organização dentro do próprio banco de dados.
+
+7) O usuário terá botão "Comprar" e um de "Carrinho de Compra". O primeiro a levará para uma página com essa bike específica ou terá a opção de add no carrinho. O carrinho de compra vai mostrar todas as bikes e as unidades que a pessoa comprou.
+
+8) Implementar o que faltar de HTML e CSS. Antes disso, necessita decidir se vair criar o blog ou não:
+1 - Transformar o NAVBAR para deixar similar ao do CrossBike - FEITO
+2 - Criar um rodapé (Vou precisar criar uma página de contato) - FEITO
+3 - Veja se consegue inserir um ícone de carrinho de compras - FEITO
+4 - Adicionar um carrosel de imagens no index principal - FEITO
+5 - ao invés das mensagens de erro na tela, adicione um alert se possível igual ao tentar add no carrinho de compras sem estar logado - FEITO
+6 - Adicionar as bikes dos kids - FEITO
+7 - Criar uma página quem somos e contato no lugar de blog - FEITO
+8 - Tamanho do botão e compra e do ícone do carrinho de compra - FEITO
+9 - Configurar as rotas para que exibam as bikes dos tamanhos adults, teens e kids. - DEIXEI PARA OUTRO PROJETO
+10 - Tamanho das imagens no carousel - para ver se conseguimos melhorar - FEITO
+
+
+9) Vai reorganizar a área admin de bikes pelo tamanho também ou todos nos mesmo lugar e só pela data de registro como está?? Acho que vou manter do jeito que está, pois nem pretendo mostrar no vídeo, mas apenas comentar. - DEIXEI PARA OUTRO PROJETO - se eu tivesse outros produtos no projeto, como capacetes, seria bom criar uma melhor divisão.
+
+10) Precisamos de um tratamento ou decorator para sinalizar para o user que não está logado, caso ele tente acessar alguma página de user. Podemos fazer um decorator ou criar uma render para a página inicial e exibir uma mensagem de que é necessário realizar cadastro ou login.
+
+NÃO FEITO:
+
+Site para pegar modelos de bikes:
+https://www.krwbikes.com.br/bicicleta-aro-29-krw-aluminio-21v-marchas-freio-a-disco-suspensao-dianteira-mountain-bike-kr14
+
+User Admin
+email: derickengles@gmail.com
+senha: @admin1
+User comum
+email: msilva@gmail.com
+senha: @maria1997
+
+
+17/07/2024 - BOTÕES COMPRA E CARRINHO NAS OUTRAS PÁGINAS
+
+OBS do projeto:
+Necessitei fazer a inclusão do script: <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script> na página main.handlebars, que reflete configurações gerais para todas as páginas do projeto, para conseguir usar o dropdown da opção "Compre sua bike" em cada.  Dropdown buttons é mais usado para execução de ações como o envio de alguma informação. Dropdowns link para enviar para página diferentes
+
+É interessante ir testando parte por parte de um projeto, em prol de entender cada parte e ir fazendo aos poucos.
+
+Em projetos reais, a abordagem para manter as imagens atualizadas varia conforme as necessidades e recursos disponíveis. A implementação de um painel de administração para upload de imagens oferece uma solução prática e escalável, permitindo que os administradores mantenham o conteúdo atualizado sem a necessidade de intervenção técnica. Integrar serviços de terceiros ou APIs proporciona flexibilidade e funcionalidades avançadas, mas pode implicar em custos adicionais. A escolha da abordagem depende dos requisitos específicos do projeto e do balanceamento entre simplicidade e funcionalidade.
+
+Para um próximo projeto, caso coloque forms, devemos acrescentar algo para que ele fique flexível e ir para baixo quando mensagens de erro surgirem
+
+Variáveis declaradas com var têm escopo global ou de função, enquanto variáveis declaradas com let têm escopo de bloco. A principal diferença entre var e const é a mutabilidade. Variáveis declaradas com var podem ser atualizadas, enquanto variáveis declaradas com const não podem.
+
+
+Mandar para o linkedin e fazer deploy
+
+E, aí, pessoal
+Tudo tranquilo? Espero que sim!
+
+Queria mostrar meu novo projetinho. No primeiro semestre da faculdade, tive um trabalho para aula de 
+Software Desing que consistia em criar no powerpoint partes de um template de uma loja e nesta aula surgiu o CrossBike, uma loja virtual de bicicleta. Contudo, agora o recriei com código utilizando o framework Express.js, o banco de dados Mongoose, handlebars para trabalhar com os templates aliado com bootstrap, o middleware passporta para lidar com login, API Fetch para fazer requisições para o back-end do FRONT e a também API SweetAlert2 para criar os alerts mais estilizados.  
+
+Nesse sentido, pude, finalmente, aprender, principalmente, como funcionam as imagens na página principal dos sites de compras que visatamos, que é o chamado Carrousel de imagens, totalmente, clicáveis, feito utilizando o próprio HTML, além da criação do Carrinho de Compras, onde cade user que se cadastra terá o seu próprio ao selecionar produtos. Outrossim, temos uma área admin, onde o ADMIN pode acrescentar, editar e deletar bikes.
+
+PS: Os botões na aba Kids foram alinhados corretamente após a gravação.

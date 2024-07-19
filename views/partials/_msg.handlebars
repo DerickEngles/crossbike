@@ -1,0 +1,9 @@
+<!--Os meus partials, arquivos que são renderizados em outros arquivos de template e não diretamente, começam por _ apenas por conveção, indicando que são partials. Contudo não é uma regra que necessita ser seguida a risca-->
+{{#if success_msg}} 
+    <div class="alert alert-success">{{success_msg}}</div>
+{{/if}}
+
+{{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+{{/if}}
+<!--Esse success estão vindo da variável global res.local e essa estão recebendo das rotas nas quais definimos mensagens de sucesso e erro.-->

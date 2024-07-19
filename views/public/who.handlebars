@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('/image/backgrounds/who-image.jpg'); /* Substitua pelo caminho da sua imagem */
+            background-size: 100% 100%; /* Ajuste a largura e a altura da imagem */
+            background-repeat: no-repeat;
+            background-position: center 20px; /* Ajuste para subir a imagem */
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .card-custom {
+            width: 600px; /* Ajuste o tamanho do card conforme necessário */
+            background-color: #1E3A8A; /* Azul escuro para o fundo do card */
+            color: white; /* Texto branco no card */
+            border: none;
+            position: absolute;
+            left: 50%; /* Ajuste a posição do card com relação ao contêiner */
+            top: 50%; /* Centralizar verticalmente */
+            transform: translate(43%, -51%); /*Estamos mexendo no card no eixo x e eixo Y/altura apenas*/
+            padding: 20px;
+            text-align: center; /* Centralizar conteúdo */
+        }
+        /*Posicionamento Fixo (Pixels): Use left, right, top, e bottom com valores fixos (como pixels) quando você precisa de um deslocamento fixo e conhecido em relação ao contêiner pai.
+        Posicionamento Dinâmico (Percentual): Use transform: translate com valores percentuais para centrar elementos em relação ao seu próprio tamanho, especialmente útil para centralização.*/
+        .btn-custom {
+            background-color: #3B82F6; /* Fundo azul claro para o botão */
+            color: white; /* Texto branco no botão */
+            border: 1px solid #60A5FA; /* Bordo azul mais claro */
+            margin-top: 10px; /* Espaçamento acima do botão */
+        }
+        .btn-custom:hover {
+            background-color: #60A5FA; /* Fundo azul mais claro ao passar o mouse */
+            border-color: #3B82F6; /* Bordo azul mais escuro ao passar o mouse */
+        }
+        .crossbike {
+            text-shadow: 1px 1px 0 #3B82F6, -1px -1px 0 #3B82F6, 1px -1px 0 #3B82F6, -1px 1px 0 #3B82F6, 0 1px 0 #3B82F6, 0 -1px 0 #3B82F6, -1px 0 0 #3B82F6, 1px 0 0 #3B82F6; /* Contorno azul */
+            display: inline-block; /* Garante que a sombra de texto se aplique corretamente */
+        }
+        .form-label-custom {
+            text-align: left; /* Alinha os rótulos à esquerda */
+            display: block; /* Garante que cada rótulo fique em uma linha */
+            margin-bottom: 5px; /* Espaçamento abaixo de cada rótulo */
+        }
+    </style>
+</head>
+<body>
+    <div class="card card-custom">
+        <div class="card-body">
+            <h2><span class="crossbike">CrossBike</span></h2>
+            <br>
+            <h4>Quem nós somos?</h4>
+            <br>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of 
+                type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into 
+                electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
+                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including 
+                versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of 
+                classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at 
+                Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, 
+                and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from 
+                sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" The Extremes of Good and Evil by Cicero, written in 45 BC. 
+                This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem 
+                ipsum dolor sit amet.</p>
+            <form action="/usuarios/login" method="post" class="text-center">
+                
+            </form>
+        </div>
+    </div>
+</body>
+</html>

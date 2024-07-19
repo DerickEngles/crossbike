@@ -1,0 +1,34 @@
+{{#each errors}} <!--Para o caso de haver erros vindos da rota POST que vamos criar. Vamos adicionar um texto na lista erros que será passada para a variável erros-->
+    <div class="alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+<h3>Editar Produto: {{bike.model}}</h3>
+
+<!--Como estou passando uma bike só para o contexto, eu não preciso colocar um each como se tivesse mais de uma-->
+<div class="card">
+    <div class="card-body">
+        <form action="/admin/bikes/editpost" method="POST" enctype="multipart/form-data"> <!--Essa enctype="multipart/form-data" é importante para upload de imagens. O upload/imagem também será emitida para a rota addpost-->
+        <input type="hidden" name="id" value="{{bike._id}}"> <!--Sim, exatamente! A linha <input type="hidden" name="id" value="{{bike._id}}"> cria um campo oculto no formulário HTML que armazena o ID da bicicleta específica sendo editada. Isso é útil porque, se houver algum erro durante o processo de edição e a página precisar ser recarregada, você ainda terá acesso ao ID da bicicleta que está sendo editada.-->
+        <label for="model">Modelo da bicicleta: </label>
+            <input type="text" id="model" name="model" placeholder="Digite o modelo da bicicleta" class="form-control" value="{{bike.model}}" required>
+        <label for="description">Descrição: </label>
+            <textarea type="text" id="description" name="description" placeholder="Digite a descrição" class="form-control"required>{{bike.description}}</textarea> <!--A tag textarea não possui o atributo value. Para exibir o valor em um campo que possui essa tag para o inserimento dele, precisamos coloca-lo entre o ponto de abertura e fechamento da tag.-->
+        <label for="size">Tamanho: </label>
+            <input id="size" name="size" placeholder="Digite o tamanho (Kids, Teens ou Adults)" class="form-control" value="{{bike.size}}" required>
+        <label for="cost">Preço: </label>
+            <input id="cost" name="cost" placeholder="Digite o preço" class="form-control" value="{{bike.cost}}" required>
+        <label for="slug">Slug: </label>
+            <input type="text" id="slug" name="slug" placeholder="Slug do evento" class="form-control" value="{{bike.slug}}" required>
+        <br>
+        <div class="image-container-events">
+            <img src="{{bike.image}}" alt="Imagem da bike" style="max-width: 400px; border: 1px solid #ccc; border-radius: 5px; padding: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);"> <!--O campo alt é preenchido com uma frase que aparece no lugar da imagem caso, por algum motivo, ela não carregue na página.-->
+        </div>
+        <label for="image"><h4>Modificar imagem atual?</h4></label> <!--for indica qual input este label está associado. Nesse caso, um que tenhamos o input de id "nome" logo abaixo-->
+            <input type="file" id="image" name="image" placeholder="Carregue a imagem" class="form-control">
+            <br>
+        <button type="submit" class="btn btn-success">Editar produto</button> <!--action está definindo a rota que irá receber os dados-->
+        </form>
+    </div>
+</div>
+

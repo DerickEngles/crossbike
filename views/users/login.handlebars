@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('/image/backgrounds/login-image.jpg'); /* Substitua pelo caminho da sua imagem */
+            background-size: 100% 100%; /* Ajuste a largura e a altura da imagem */
+            background-repeat: no-repeat;
+            background-position: center 20px; /* Ajuste para subir a imagem */
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .card-custom {
+            width: 400px; /* Ajuste o tamanho do card conforme necessário */
+            background-color: #1E3A8A; /* Azul escuro para o fundo do card */
+            color: white; /* Texto branco no card */
+            border: none;
+            position: absolute;
+            left: 80px; /* Ajuste a posição do card com relação ao contêiner */
+            top: 50%; /* Centralizar verticalmente */
+            transform: translateY(-50%); /*Estamos mexendo no card, mas no eixo Y/altura apenas*/
+            padding: 20px;
+            text-align: center; /* Centralizar conteúdo */
+        }
+        /*Posicionamento Fixo (Pixels): Use left, right, top, e bottom com valores fixos (como pixels) quando você precisa de um deslocamento fixo e conhecido em relação ao contêiner pai.
+        Posicionamento Dinâmico (Percentual): Use transform: translate com valores percentuais para centrar elementos em relação ao seu próprio tamanho, especialmente útil para centralização.*/
+        .btn-custom {
+            background-color: #3B82F6; /* Fundo azul claro para o botão */
+            color: white; /* Texto branco no botão */
+            border: 1px solid #60A5FA; /* Bordo azul mais claro */
+            margin-top: 10px; /* Espaçamento acima do botão */
+        }
+        .btn-custom:hover {
+            background-color: #60A5FA; /* Fundo azul mais claro ao passar o mouse */
+            border-color: #3B82F6; /* Bordo azul mais escuro ao passar o mouse */
+        }
+        .crossbike {
+            text-shadow: 1px 1px 0 #3B82F6, -1px -1px 0 #3B82F6, 1px -1px 0 #3B82F6, -1px 1px 0 #3B82F6, 0 1px 0 #3B82F6, 0 -1px 0 #3B82F6, -1px 0 0 #3B82F6, 1px 0 0 #3B82F6; /* Contorno azul */
+            display: inline-block; /* Garante que a sombra de texto se aplique corretamente */
+        }
+        .form-label-custom {
+            text-align: left; /* Alinha os rótulos à esquerda */
+            display: block; /* Garante que cada rótulo fique em uma linha */
+            margin-bottom: 5px; /* Espaçamento abaixo de cada rótulo */
+        }
+    </style>
+</head>
+<body>
+    <div class="card card-custom">
+        <div class="card-body">
+            <h2><span class="crossbike">CrossBike</span></h2>
+            <p>A melhor loja de Bikes do Brasil!</p>
+            <form action="/usuarios/login" method="post" class="text-center">
+                <div class="mb-3">
+                    <label for="email" class="form-label-custom">Email:</label>
+                    <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="senha" class="form-label-custom">Senha:</label>
+                    <input type="password" class="form-control" name="password" required>
+                </div>
+                <button class="btn btn-custom" type="submit">Entrar</button>
+            </form>
+            <p>ou</p>
+            <p>Clique <a href="/usuarios/registro" class="text-decoration-none"><strong>AQUI</strong></a> para se inscrever</p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<!--
+PRIMEIRA VERSÃO
+
+<h4>Login: </h4>
+<div class="card">
+    <div class="card-body">
+        em action, usuario é a pasta/diretório em a rota login está localizada. Essa é a rota/caminho
+        <form action="/usuarios/login" method="post"> é do tipo post, pois ele enviará dados para o backend e ele checará se há um e-mail e senha no banco iguais aos fornecidos
+            <label for="email">Email: </label>
+                <input type="email" class="form-control" name="email" required>
+            <label for="senha">Senha: </label>
+                <input type="password" class="form-control" name="password" required><br>
+            <button class="btn btn-success" type="submit">Entrar</button>
+        </form>
+    </div>
+</div>-->

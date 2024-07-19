@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .cart-image {
+            height: 54px; /* Ajuste a altura conforme necessário para corresponder à altura do botão */
+            width: auto; /* Mantém a proporção da imagem */
+            vertical-align: middle; /* Centraliza a imagem verticalmente no botão */
+        }
+        .btn-custom-cart {
+            background-color: darkblue;
+            color: white; /* Adiciona cor do texto */
+            height: 55px; /* Ajuste a altura conforme necessário */
+            width: 150px; /* Ajuste a largura conforme necessário */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none; /* Remove borda padrão */
+            padding: 0; /* Remove padding para alinhamento preciso */
+            margin: 0; /* Remove margem para alinhamento preciso */
+        }
+        .btn-custom-buy {
+            background-color: green;
+            color: white; /* Adiciona cor do texto */
+            height: 55px; /* Ajuste a altura conforme necessário */
+            width: 150px; /* Ajuste a largura conforme necessário */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none; /* Remove borda padrão */
+            padding: 0; /* Remove padding para alinhamento preciso */
+            margin: 0; /* Remove margem para alinhamento preciso */
+        }
+        .product-name-description {
+            height: 40px; /* Ajuste conforme necessário */
+            overflow: hidden; /* Esconde o texto que ultrapassar o limite */
+            text-overflow: ellipsis; /* Adiciona "..." no final do texto que ultrapassar o limite */
+            white-space: nowrap; /* Impede a quebra de linha */
+            text-align: left; /* Centraliza o texto */
+        } 
+        .card-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Espaço entre os botões */
+            flex-wrap: wrap; /* Garante que os botões se ajustem em telas menores */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2><strong>Bikes para Kids:</strong></h2>
+
+        <div class="row">
+            {{#each bikes}}
+                <div class="col-md-4">
+                    <div class="card mt-4">
+                        <div class="card-buttons">
+                            <img src="{{image}}" alt="Imagem da bike" class="img-fluid" style="height: 400px; border: 1px solid #ccc; border-radius: 5px; padding: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="product-name-description">{{model}}</h3>
+                            <h5>Descrição:</h5>
+                            <p class="product-name-description">{{description}}</p>
+                            <h5>Tamanho:</h5>
+                            <p>{{size}}</p>
+                            <h5>Preço:</h5>
+                            <h2>R${{cost}}</h2>
+                            <div class="card-buttons">
+                                <!-- COMO VAMOS TROCAR DE ABORDAGEM, VAMOS COLOCAR O BOTÃO FORA DO FORM PARA UTILIZAR O A ESTRATÉGIA DO FETCH E SWAL.FIRE
+                                <form action="/usuarios/buy/{{_id}}" method="POST">
+                                    <button class="btn btn-custom-buy" type="submit"><strong>COMPRAR</strong></button>
+                                </form>-->
+                                <button class="btn btn-custom-buy buy-to-cart" data-id="{{_id}}" type="submit"><strong>COMPRAR</strong></button>
+                                <div class="mx-2"></div>
+                                <button class="btn btn-custom-cart add-to-cart" data-id="{{_id}}"><img src="/image/itens/cart-image.png" alt="Adicionar ao Carrinho" class="cart-image"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                <h4 class="mt-3">Nenhum produto registrado!</h4>
+            {{/each}}
+        </div>
+    </div>
+    <br>
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() { /*Este evento é acionado quando o documento HTML inicial foi completamente carregado e analisado, sem esperar que folhas de estilo, imagens e subframes terminem de carregar. É um ponto ideal para adicionar manipuladores de eventos a elementos que existem na página.*/
+        document.querySelectorAll('.add-to-cart').forEach(button => { // Está linha sinaliza para o código que as ações serão para todos os botões que tenham o nome 'add-to-cart' dentro da tag <button></button>. Se olhar lá na tag buttons no HTML, o botão de "Adicionar ao carrinho de compras" tem o mesmo nome.
+            button.addEventListener('click', function() { // Sinaliza a execução da função criada abaixo no botão, ou seja, quando ocorrer o evento click
+                const bikeId = this.getAttribute('data-id'); // Essa constante foi criada para receber o id da bike em que tivemos um click no botão
+
+                fetch(`/usuarios/add-to-cart/${bikeId}`, { // A função fetch é usada para fazer uma solicitação HTTP. Aqui, estamos fazendo uma solicitação POST para a rota /usuarios/add-to-cart/${bikeId}, onde ${bikeId} é o ID da bicicleta. Também definimos o cabeçalho Content-Type como application/json para informar ao servidor que estamos enviando JSON.
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                    // A função fetch envia um promise para a rota add-to-cart que é um representante de uma eventual conclusão (ou falha) de uma operação assíncrona e seu valor resultante. 
+                    // A função fetch recebe da rota, especificamente, add-to-cart (o res.json) um response cheio de informações sobre a resposta, como o status, os headers, e o corpo. Ao chegar, ele chega no HTML e a função then(response => response.json()) lê, converte o response para um objeto json e interpreta para usarmos a resposta conforme foi arquitetado nos swal.fire
+                }).then(response => response.json()) // Aqui, estamos lidando com a resposta da solicitação fetch. A primeira função then converte a resposta em JSON. A segunda função then verifica se a resposta contém success: true e, em caso afirmativo, exibe um alerta de sucesso usando SweetAlert2. Se success for false, exibe um alerta de erro. A função catch captura quaisquer erros que ocorrem durante a solicitação fetch e exibe um alerta de erro correspondente.
+                  .then(data => { // data é o nome da variável que contém a resposta, ou seja, poderia ter qualquer outro nome
+                      if (data.success) {
+                          Swal.fire({ // Aqui no swal.fire temos a formação dos alert bonitos. Ele é uma função da biblioteca SweetAlert2 que sinalizamos lá no main.handlebars
+                              icon: 'success',
+                              title: 'Sucesso',
+                              text: data.message,
+                              showConfirmButton: false,
+                              timer: 1500
+                          });
+                      } else {
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Erro',
+                              text: 'Erro ao adicionar o produto ao carrinho.',
+                          });
+                      }
+                  }).catch(err => { // Caso ocorra algum erro no uso do fetch.
+                      console.error('Erro:', err);
+                      Swal.fire({
+                          icon: 'error',
+                          title: 'Erro',
+                          text: "Você precisa estar logado ou criar uma conta para adicionar ao carrinho de compras!",
+                      });
+                  });
+            });
+        });
+        document.querySelectorAll('.buy-to-cart').forEach(button => { // Está linha sinaliza para o código que as ações serão para todos os botões que tenham o nome 'add-to-cart' dentro da tag <button></button>. Se olhar lá na tag buttons no HTML, o botão de "Adicionar ao carrinho de compras" tem o mesmo nome.
+            button.addEventListener('click', function() { // Sinaliza a execução da função criada abaixo no botão, ou seja, quando ocorrer o evento click
+                const bikeId = this.getAttribute('data-id'); // Essa constante foi criada para receber o id da bike em que tivemos um click no botão
+
+                fetch(`/usuarios/buy/${bikeId}`, { // A função fetch é usada para fazer uma solicitação HTTP. Aqui, estamos fazendo uma solicitação POST para a rota /usuarios/add-to-cart/${bikeId}, onde ${bikeId} é o ID da bicicleta. Também definimos o cabeçalho Content-Type como application/json para informar ao servidor que estamos enviando JSON.
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                    // A função fetch envia um promise para a rota add-to-cart que é um representante de uma eventual conclusão (ou falha) de uma operação assíncrona e seu valor resultante. 
+                    // A função fetch recebe da rota, especificamente, add-to-cart (o res.json) um response cheio de informações sobre a resposta, como o status, os headers, e o corpo. Ao chegar, ele chega no HTML e a função then(response => response.json()) lê, converte o response para um objeto json e interpreta para usarmos a resposta conforme foi arquitetado nos swal.fire
+                }).then(response => response.json()) // Aqui, estamos lidando com a resposta da solicitação fetch. A primeira função then converte a resposta em JSON. A segunda função then verifica se a resposta contém success: true e, em caso afirmativo, exibe um alerta de sucesso usando SweetAlert2. Se success for false, exibe um alerta de erro. A função catch captura quaisquer erros que ocorrem durante a solicitação fetch e exibe um alerta de erro correspondente.
+                  .then(data => { // data é o nome da variável que contém a resposta, ou seja, poderia ter qualquer outro nome
+                      if (data.success) {
+                        // Não desejo mostrar mensagem de sucesso, pois a ideia e ir direto para o carrinho de compras
+                        window.location.href = '/usuarios/cart'; // Vamos redirecionar o programa para a rota correta aqui, tendo em vista que o fetch sempre espera uma resposta.
+                    } else {
+                        showAlert('error', 'Erro', 'Erro ao adicionar o produto ao carrinho.');
+                    }
+                }).catch(err => { // Caso ocorra algum erro no uso do fetch.
+                    console.error('Erro:', err);
+                    showAlert('error', 'Erro', 'Você precisa estar logado ou criar uma conta para comprar!');
+                });
+            });
+        });
+    });
+</script>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-custom {
+            background-color: darkblue; /* Azul menos brilhante */
+        }
+        .navbar-brand-custom {
+            color: white; /* Letras brancas */
+            text-shadow: 1px 1px 0 #3B82F6, -1px -1px 0 #3B82F6, 1px -1px 0 #3B82F6, -1px 1px 0 #3B82F6, 0 1px 0 #3B82F6, 0 -1px 0 #3B82F6, -1px 0 0 #3B82F6, 1px 0 0 #3B82F6; /* Contorno azul */
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #60A5FA; /* Azul mais claro para as letras */
+        }
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link:focus {
+            color: black; /* Cor preta ao passar o mouse */
+        }
+        .navbar-nav .nav-link.active {
+            color: #60A5FA; /* Azul mais claro para o link ativo */
+        }
+        .navbar-nav .dropdown-menu .dropdown-item {
+            color: #60A5FA; /* Azul mais claro para os itens do dropdown */
+        }
+        .navbar-nav .dropdown-menu .dropdown-item:hover,
+        .navbar-nav .dropdown-menu .dropdown-item:focus {
+            color: black; /* Cor preta ao passar o mouse nos itens do dropdown */
+        }
+        .navbar-toggler {
+            border-color: #60A5FA; /* Azul mais claro para o botão menu */
+        }
+        .navbar-toggler-icon {
+            color: #60A5FA; /* Azul mais claro para o ícone do botão menu */
+        }
+        .nav-link-cart{
+            background-color: darkblue;
+            color: white; /* Adiciona cor do texto */
+            height: 40px; /* Ajuste a altura conforme necessário */
+            width: 50px; /* Ajuste a largura conforme necessário */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none; /* Remove borda padrão */
+            padding: 0; /* Remove padding para alinhamento preciso */
+            margin: 0; /* Remove margem para alinhamento preciso */
+        }
+    </style>
+    <title>Página Inicial</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand navbar-brand-custom" href="/">CrossBike</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">Menu</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="bikeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Compre sua bike
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="bikeDropdown">
+                            <li><a class="dropdown-item" href="/usuarios/adultbikes">Adults</a></li>
+                            <li><a class="dropdown-item" href="/usuarios/teenbikes">Teens</a></li>
+                            <li><a class="dropdown-item" href="/usuarios/kidbikes">Kids</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contato">Contato</a> <!--Como declaramos em app.js sem um nome, então não precisamos colocar um /public, por exemplo, pois quando for lá para app.js, ele já saberá que é para o public. Contudo e seu tivesse duas rotas sem um nome?? Como funcionaria nessa situação??????-->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quemsomos">Quem somos</a> 
+                    </li>
+                    {{#if user}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/usuarios/edituser">Alterar dados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/usuarios/logout">Logout</a>
+                        </li>
+                    {{else}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/usuarios/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/usuarios/registro">Crie sua conta</a>
+                        </li>
+                    {{/if}}
+                    <li class="nav-item">
+                        <a class="nav-link-cart" href="/usuarios/cart"><img src="/image/itens/cart-image.png" alt="Adicionar ao Carrinho" style="width: 50px; height: 40px;"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
+
+
+<!--
+Versão mais simples: com o dropdown funcionando e sem o CSS
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Página Inicial</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">CrossBike</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Menu</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="bikeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Compre sua bike
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="bikeDropdown">
+                            <li><a class="dropdown-item" href="/usuarios/adultbikes">Adults</a></li> /usuarios é a forma geral que sinalizamos no admin para termos acesso as rotas em user.js - O segundo nome está relacionado ao nome dessa rota lá em user.js, que será uma get.
+                            <li><a class="dropdown-item" href="/usuarios/teenbikes">Teens</a></li>
+                            <li><a class="dropdown-item" href="/usuarios/kidbikes">Kids</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a> 
+                    </li>
+                    {{#if user}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/usuarios/edituser">Alterar dados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/usuarios/logout">Logout</a>
+                        </li>
+                    {{else}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/usuarios/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/usuarios/registro">Crie sua conta</a>
+                        </li>
+                    {{/if}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios/cart">Carrinho</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
+-->

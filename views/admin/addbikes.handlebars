@@ -1,0 +1,29 @@
+{{#each errors}} <!--Para o caso de haver erros vindos da rota POST que vamos criar. Vamos adicionar um texto na lista erros que será passada para a variável erros-->
+    <div class="alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+<h3>Novo Produto</h3>
+<!--quanto mais divs, mais enquadrado fica o nosso template. É como adicionar frames/molduras.
+
+O for definido em cada label faz com que o navegador coloque destaque nele quando clicarmos em cima dele-->
+<div class="card">
+    <div class="card-body">
+        <form action="/admin/bikes/addpost" method="POST" enctype="multipart/form-data"> <!--Essa enctype="multipart/form-data" é importante para upload de imagens. O upload/imagem também será emitida para a rota addpost-->
+        <label for="model">Modelo da bicicleta: </label>
+            <input type="text" id="model" name="model" placeholder="Digite o modelo da bicicleta" class="form-control" required>
+        <label for="description">Descrição: </label>
+            <textarea type="text" id="description" name="description" placeholder="Digite a descrição" class="form-control" required></textarea>
+        <label for="size">Tamanho: </label>
+            <input id="size" name="size" placeholder="Digite o tamanho (Kids, Teens ou Adults)" class="form-control" required>
+        <label for="cost">Preço: </label>
+            <input id="cost" name="cost" placeholder="Digite o preço" class="form-control" required>
+        <label for="slug">Slug: </label>
+            <input type="text" id="slug" name="slug" placeholder="Slug da Bike" class="form-control" required>
+        <label for="image">Imagem: </label> <!--for indica qual input este label está associado. Nesse caso, um que tenhamos o input de id "nome" logo abaixo-->
+            <input type="file" id="image" name="image" placeholder="Carregue a imagem" class="form-control">
+            <br>
+        <button type="submit" class="btn btn-success">Adicionar produto</button> <!--action está definindo a rota que irá receber os dados-->
+        </form>
+    </div>
+</div>
